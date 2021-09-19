@@ -31,7 +31,7 @@ export default function Home() {
         router.push("/signin")
       }
     })
-    return ()=>unSub()
+    return () => unSub()
   },[])
   console.log("aaa")
   console.log(currentUser)

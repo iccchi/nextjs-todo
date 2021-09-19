@@ -21,10 +21,12 @@ const SigninPage = () => {
         setCurrentUser({
           id: userCredential.user.uid,
           username: userCredential.user.displayName,
-          avatarUrl: userCredential.user.photoURL
+          avatarUrl: userCredential.user.photoURL,
+          
         })
+        router.push("/mypage")
       }).catch(err=>{
-        console.log(err)
+        alert(err.message)
       })
   }
 
@@ -36,7 +38,7 @@ const SigninPage = () => {
           username: user.displayName,
           avatarUrl: user.photoURL
         })
-        
+
       }else{
         setCurrentUser({
           id:"",

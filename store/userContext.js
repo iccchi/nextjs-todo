@@ -7,7 +7,9 @@ const UserContextProvider = ({children}) => {
   const [currentUser, setCurrentUser] = useState({
     id: "",
     username:"",
-    avatarUrl: null 
+    avatarUrl: null,
+    createdAt: "",
+    lastLoginAt: "", 
   })
   return (
     <userContext.Provider value={{currentUser, setCurrentUser}}>
