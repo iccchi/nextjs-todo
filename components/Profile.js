@@ -1,18 +1,17 @@
 import React, { useState, useContext } from 'react'
-import { Stack, Avatar, Input,AvatarBadge, AvatarGroup, Center, Heading, Text, Button, Link, Badge, useColorModeValue,Box } from "@chakra-ui/react"
+import { Stack, Avatar, Input,AvatarBadge, AvatarGroup, Center, Heading, Text, Button, Link, Badge, useColorModeValue,Box,FormLabel } from "@chakra-ui/react"
 import { async } from '@firebase/util'
 import { updateProfile } from '@firebase/auth'
 import { auth, storage} from '../firebase'
 import { userContext } from '../store/userContext'
 import { getDownloadURL, uploadBytes, deleteObject, ref } from '@firebase/storage'
 
-
 const Profile = ({username, createdAt, lastLoginAt, avatarUrl}) => {
-  const [editUserName, setEditUserName] = useState(username)
   const [isEdit, setIsEdit] = useState(false)
   const {currentUser, setCurrentUser } = useContext(userContext)
   const [avatarImage, setAvatarImage] = useState(null)
-
+  const [editUserName, setEditUserName] = useState(currentUser.username)
+  
   const onChangeImageHandler = (e) => {
     if(e.target.files[0]){
       setAvatarImage(e.target.files[0])
@@ -77,9 +76,19 @@ const Profile = ({username, createdAt, lastLoginAt, avatarUrl}) => {
             right: 3,
           }}
         />
-        {isEdit && <input type="file" onChange={onChangeImageHandler}/>}
-        <Heading fontSize={'2xl'} fontFamily={'body'}>
-          {isEdit ? <Input value={editUserName} onChange={(e)=>setEditUserName(e.target.value)}/> : username}
+        {isEdit && (
+          <>
+            <FormLabel >Avatar Image</FormLabel>
+            <input type="file" onChange={onChangeImageHandler}/>
+          </>
+        )}
+        <Heading fontSize={'2xl'} fontFamily={'body'} mt={3}>
+          {isEdit ? (
+            <>
+              <FormLabel>username</FormLabel>
+              <Input value={editUserName} onChange={(e)=>setEditUserName(e.target.value)}/>
+            </>
+          ): username}
         </Heading>
         <Text
           textAlign={'center'}
@@ -106,7 +115,11 @@ const Profile = ({username, createdAt, lastLoginAt, avatarUrl}) => {
         </Stack>
         <Stack mt={8} direction={'row'} spacing={4}>
           <Button
-            onClick={isEdit ? updateUserProfile : ()=>setIsEdit(!isEdit)}
+            onClick={isEdit ? updateUserProfile 
+              : ()=>{
+                setIsEdit(!isEdit)
+                setEditUserName(username)
+              }}
             flex={1}
             fontSize={'sm'}
             rounded={'full'}

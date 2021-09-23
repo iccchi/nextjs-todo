@@ -27,12 +27,12 @@ const MyPage = () => {
     })
     
   }
-  useAuthStatus()
+  useAuthStatus("mypage")
   console.log(auth.currentUser)
   console.log(currentUser)
   return (
     <>
-      <Layout title="mypage" changePage={logout}>
+      <Layout title="mypage">
         <Profile 
           username={currentUser.username} 
           avatarUrl={currentUser.avatarUrl}

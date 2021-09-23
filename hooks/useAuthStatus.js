@@ -4,7 +4,7 @@ import { onAuthStateChanged } from '@firebase/auth';
 import { userContext } from '../store/userContext';
 import { useRouter } from 'next/router';
 
-export const useAuthStatus = () => {
+export const useAuthStatus = (route, back=true) => {
   const {currentUser, setCurrentUser} = useContext(userContext)
   const router = useRouter()
   useEffect(()=>{
@@ -23,6 +23,7 @@ export const useAuthStatus = () => {
           createdAt: createdDate,
           lastLoginAt: lastLoginDate, 
         })
+        router.push(`/${route}`)
       }else{
         setCurrentUser({
           id:"",
@@ -31,9 +32,10 @@ export const useAuthStatus = () => {
           createdAt: "",
           lastLoginAt: "", 
         })
-        router.push("/signin")
+        if(back)router.push("/signin")
       }
     })
     return () => unSub()
   },[])
+  return
 }

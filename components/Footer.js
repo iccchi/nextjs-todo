@@ -14,7 +14,9 @@ const Footer = () => {
       bottom={"0"}
       w={"full"}
       bg="teal.500"
+      minH={"10vh"}
       color={"white"}>
+      
       <Container
         as={Stack}
         maxW={'6xl'}

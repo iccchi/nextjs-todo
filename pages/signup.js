@@ -7,6 +7,7 @@ import { createUserWithEmailAndPassword } from '@firebase/auth'
 import { ref, uploadBytes, getDownloadURL } from '@firebase/storage'
 import { updateProfile } from '@firebase/auth'
 import { async } from '@firebase/util'
+import { useAuthStatus } from '../hooks/useAuthStatus'
 
 const SignupPage = () => {
   const router = useRouter()
@@ -42,6 +43,7 @@ const SignupPage = () => {
     })
   }
 
+  useAuthStatus("mypage", false)
   return (
     <Layout title="Signup" changePage={ToSigninPage}>
       <Form authEvent={signup} IsLogin={false}/>

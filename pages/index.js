@@ -12,6 +12,7 @@ import { useRouter } from 'next/router'
 export default function Home() {
   const { setCurrentUser, currentUser } = useContext(userContext)
   const router = useRouter()
+  
 
   useEffect(()=>{
     const unSub = onAuthStateChanged(auth, (user)=>{
@@ -28,13 +29,12 @@ export default function Home() {
           username: "",
           avatarUrl: null
         })
-        router.push("/signin")
+        router.push("/todos")
       }
     })
     return () => unSub()
   },[])
-  console.log("aaa")
-  console.log(currentUser)
+
   return (
     <Layout title="index">
       Loading ...

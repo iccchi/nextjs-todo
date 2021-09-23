@@ -6,7 +6,7 @@ import { auth } from '../firebase'
 import Form from '../components/Form'
 import { useContext, useEffect } from 'react'
 import { userContext } from '../store/userContext'
-
+import { useAuthStatus } from '../hooks/useAuthStatus'
 const SigninPage = () => {
   const { setCurrentUser, currentUser } = useContext(userContext)
   const router = useRouter()
@@ -22,33 +22,15 @@ const SigninPage = () => {
           id: userCredential.user.uid,
           username: userCredential.user.displayName,
           avatarUrl: userCredential.user.photoURL,
-          
+
         })
         router.push("/mypage")
       }).catch(err=>{
         alert(err.message)
       })
   }
-
-  useEffect(()=>{
-    const unSub = onAuthStateChanged(auth, (user)=>{
-      if(user){
-        setCurrentUser({
-          id: user.uid,
-          username: user.displayName,
-          avatarUrl: user.photoURL
-        })
-
-      }else{
-        setCurrentUser({
-          id:"",
-          username: "",
-          avatarUrl: null
-        })
-      }
-    })
-    return ()=>unSub()
-  },[])
+  useAuthStatus("mypage", false)
+  
   console.log("aaa")
   console.log(currentUser)
 
