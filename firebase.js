@@ -6,12 +6,12 @@ import "firebase/storage"
 import "firebase/firestore"
 
 export const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
+  apiKey: NEXT_PUBLIC_FIREBASE_APIKEY,
+  authDomain: NEXT_PUBLIC_FIREBASE_AUTH,
+  projectId: NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: NEXT_PUBLIC_FIREBASE_SENDER_ID,
+  appId: NEXT_PUBLIC_FIREBASE_APP_ID
 }
 
 export const app = initializeApp(firebaseConfig)
