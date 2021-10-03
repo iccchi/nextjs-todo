@@ -17,22 +17,20 @@ const SigninPage = () => {
   const signin = async(email, password) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) =>{
-        console.log(userCredential)
         setCurrentUser({
           id: userCredential.user.uid,
           username: userCredential.user.displayName,
           avatarUrl: userCredential.user.photoURL,
-
+          createdAt: userCredential.user.metadata.createdAt,
+          lastLoginAt: userCredential.user.metadata.lastLoginAt,
         })
+        
         router.push("/mypage")
       }).catch(err=>{
         alert(err.message)
       })
   }
   useAuthStatus("mypage", false)
-  
-  console.log("aaa")
-  console.log(currentUser)
 
   return (
     <Layout title="Signin" changePage={ToSignupPage}>

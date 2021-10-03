@@ -34,6 +34,7 @@ const  CreatePage = () => {
   const router = useRouter()
   console.log(limit)
   console.log(currentUser)
+  //ロジックとビュー分ける。関心で分離する
   const createTask = async() => {
     try{
       const createtime = new Date()

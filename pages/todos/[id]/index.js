@@ -41,7 +41,7 @@ const DetailPage = ({uid}) => {
       return router.push("/todos")
     }
     const unsub = onSnapshot(doc(db, "todolists", uid), (snapshot)=>{
-      console.log(snapshot.data())
+     
       if(!snapshot.data()){
         router.push("/todos")
         return 
@@ -78,7 +78,7 @@ const DetailPage = ({uid}) => {
     }
   }, [])
   useAuthStatus(`todos/${uid}/`, false)
-  console.log(currentUser)
+  
   return (
     <>
     <Layout>

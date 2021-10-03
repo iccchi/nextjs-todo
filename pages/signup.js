@@ -6,12 +6,13 @@ import {auth, storage} from "../firebase"
 import { createUserWithEmailAndPassword } from '@firebase/auth'
 import { ref, uploadBytes, getDownloadURL } from '@firebase/storage'
 import { updateProfile } from '@firebase/auth'
-import { async } from '@firebase/util'
 import { useAuthStatus } from '../hooks/useAuthStatus'
+import { userContext } from '../store/userContext'
+import { useContext } from 'react'
 
 const SignupPage = () => {
   const router = useRouter()
-  
+  const { setCurrentUser } = useContext(userContext)
   const ToSigninPage = () => {
     router.push("/signin")
   }
@@ -35,10 +36,18 @@ const SignupPage = () => {
         displayName,
         photoURL: url
       })
-      console.log(userCredential)
+      
+      setCurrentUser({
+        id: userCredential.user.uid,
+        username: userCredential.user.displayName,
+        avatarUrl: userCredential.user.photoURL,
+        createdAt: userCredential.user.metadata.createdAt,
+        lastLoginAt: userCredential.user.metadata.lastLoginAt,
+      })
+      
+      router.push("/mypage")
     })
     .catch((err)=>{
-      console.log("aaa")
       console.log(err.message)
     })
   }
